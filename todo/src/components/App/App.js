@@ -16,7 +16,7 @@ class App extends Component {
     todoData: [
       this.createTodoItem('Drink Coffee'),
       this.createTodoItem('Make Awesome App'),
-      this.createTodoItem('Have a lunch')      
+      this.createTodoItem('Have a lunch')
     ]
   };
 
@@ -43,7 +43,7 @@ class App extends Component {
     });
   };
 
-  addItem = (text) => {    
+  addItem = (text) => {
     const newItem = this.createTodoItem(text);
     // add item
     this.setState(({ todoData }) => {
@@ -57,32 +57,54 @@ class App extends Component {
     });
   };
 
+  toggleProperty = (arr, id, propName) => {
+    const idx = arr.findIndex(item => item.id === id);
+    const oldItem = arr[idx];
+    const newItem = { ...oldItem, [propName]: !oldItem[propName] };
+
+    return [
+      ...arr.slice(0, idx),
+      newItem,
+      ...arr.slice(idx + 1)
+    ];    
+  };
+
   toggleImportant = (id) => {
-    console.log('Toggle Important', id);
+    this.setState(({ todoData }) => {
+      return {
+        todoData: this.toggleProperty(todoData, id, 'important')
+      };
+    });
   };
 
   toggleDone = (id) => {
     this.setState(({ todoData }) => {
-
+      return {
+        todoData: this.toggleProperty(todoData, id, 'done')
+      };
     });
   };
 
   render() {
+    const { todoData } = this.state;
+    const doneCount = todoData.filter((item) => item.done).length;
+    const todoCount = todoData.length - doneCount;
+
     return (
       <div className="todo-app">
-        <AppHeader toDo={1} done={3} />
+        <AppHeader toDo={todoCount} done={doneCount} />
         <div className="top-panel d-flex">
           <SearchPanel />
           <ItemStatusFilter />
         </div>
 
         <TodoList
-          todos={this.state.todoData}
+          todos={todoData}
           onDeleted={this.deleteItem}
           onToggleImportant={this.toggleImportant}
-          onToggleDone={this.toggleDone} 
+          onToggleDone={this.toggleDone}
         />
-        <ItemAddForm onItemAdded={this.addItem}/>
+        <ItemAddForm onItemAdded={this.addItem} />
       </div>
     );
   };
