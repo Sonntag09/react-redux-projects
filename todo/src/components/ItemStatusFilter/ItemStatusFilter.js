@@ -4,31 +4,33 @@ import './ItemStatusFilter.css';
 
 class ItemStatusFilter extends Component {
 
+  buttons = [
+    { name: 'all', label: 'All' },
+    { name: 'active', label: 'Active' },
+    { name: 'done', label: 'Done' }
+  ];  
+
   render() {
+
+    const { status, statusFilter } = this.props;
+
+    const buttons = this.buttons.map(({ name, label }) => {
+      const isActive = (status === name);
+      const btnClass = isActive ? 'btn-info' : 'btn-outline-secondary';
+      return (
+        <button type="button"
+          className={`btn ${btnClass}`}
+          onClick={() => statusFilter(name)}
+          key={name}>{label}</button>
+      );
+    });
+
     return (
       <div className="btn-group">
-        <button type="button"
-                className="btn btn-info">All</button>
-        <button type="button"
-                className="btn btn-outline-secondary">Active</button>
-        <button type="button"
-                className="btn btn-outline-secondary">Done</button>
+        {buttons}
       </div>
     );
   };
 }
-
-// const ItemStatusFilterFunc = () => {
-//   return (
-//     <div className="btn-group">
-//       <button type="button"
-//               className="btn btn-info">All</button>
-//       <button type="button"
-//               className="btn btn-outline-secondary">Active</button>
-//       <button type="button"
-//               className="btn btn-outline-secondary">Done</button>
-//     </div>
-//   );
-// };
 
 export default ItemStatusFilter;
