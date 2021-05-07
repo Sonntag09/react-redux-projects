@@ -7,8 +7,6 @@ import PeoplePage from '../PeoplePage/PeoplePage';
 
 import './App.css';
 
-import ItemList from '../ItemList';
-import PersonDetails from '../PersonDetails';
 import SwapiService from '../../services/SwapiService';
 
 export default class App extends Component {
@@ -58,11 +56,12 @@ export default class App extends Component {
 
         <PeoplePage />
 
-        <div className="row mb2">
+        {/* <div className="row mb2">
           <div className="col-md-6">
             <ItemList 
               onItemSelected={this.onPersonSelected} 
-              getData={this.swapiService.getAllPlanets} />
+              getData={this.swapiService.getAllPlanets}
+              renderItem={(item) => item.name} />
           </div>
           <div className="col-md-6">
             <PersonDetails personId={this.state.selectedPerson} />
@@ -73,12 +72,13 @@ export default class App extends Component {
           <div className="col-md-6">
             <ItemList 
               onItemSelected={this.onPersonSelected} 
-              getData={this.swapiService.getAllStarships} />
+              getData={this.swapiService.getAllStarships}
+              renderItem={(item) => item.name} />
           </div>
           <div className="col-md-6">
             <PersonDetails personId={this.state.selectedPerson} />
           </div>
-        </div>
+        </div> */}
       </div>
     );
   }
