@@ -8,14 +8,16 @@ import PeoplePage from '../PeoplePage/PeoplePage';
 import './App.css';
 
 import SwapiService from '../../services/SwapiService';
+import ErrorBoundry from '../ErrorBoundry';
+import Row from '../Row';
+import ItemDetails, { Record } from '../ItemDetails/ItemDetails';
 
 export default class App extends Component {
 
   swapiService = new SwapiService();
 
   state = {
-    showRandomPlanet: true,
-    hasError: false
+    showRandomPlanet: true
   };
 
   toggleRandomPlanet = () => {
@@ -26,37 +28,58 @@ export default class App extends Component {
     });
   };
 
-  componentDidCatch() {
-    console.log('componentDidCatch()');
-    this.setState({
-      hasError: true
-    });
-  }
-
   render() {
-
-    if (this.state.hasError) {
-      return <ErrorIndicator />
-    }
 
     const planet = this.state.showRandomPlanet ?
       <RandomPlanet /> :
       null;
 
-    return (
-      <div className="stardb-app">
-        <Header />
-        {planet}
+    const { getPerson, getStarship,
+      getPersonImage, getStarshipImage } = this.swapiService;
 
-        <button
-          className="toggle-planet btn btn-warning btn-lg"
-          onClick={this.toggleRandomPlanet}>
-          Toggle Random Planet
+    const personDetails = (
+      <ItemDetails
+        itemId={11}
+        getData={getPerson}
+        getImageUrl={getPersonImage}>
+
+        <Record field='gender' label='Gender' />
+        <Record field='eyeColor' label='Eye Color' />
+
+      </ItemDetails>
+    );
+
+    const starshipDetails = (
+      <ItemDetails
+        itemId={5}
+        getData={getStarship}
+        getImageUrl={getStarshipImage}>
+
+        <Record field='gender' label='Gender' />
+        <Record field='eyeColor' label='Eye Color' />
+
+      </ItemDetails>
+    );
+
+    return (
+      <ErrorBoundry>
+        <div className="stardb-app">
+          <Header />
+          {planet}
+
+          <button
+            className="toggle-planet btn btn-warning btn-lg"
+            onClick={this.toggleRandomPlanet}>
+            Toggle Random Planet
         </button>
 
-        <PeoplePage />
+          <Row
+            left={personDetails}
+            right={starshipDetails} />
 
-        {/* <div className="row mb2">
+          {/* <PeoplePage /> */}
+
+          {/* <div className="row mb2">
           <div className="col-md-6">
             <ItemList 
               onItemSelected={this.onPersonSelected} 
@@ -79,7 +102,8 @@ export default class App extends Component {
             <PersonDetails personId={this.state.selectedPerson} />
           </div>
         </div> */}
-      </div>
+        </div>
+      </ErrorBoundry>
     );
   }
 }

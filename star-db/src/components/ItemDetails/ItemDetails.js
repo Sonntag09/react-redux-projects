@@ -81,12 +81,12 @@ export default class ItemDetails extends Component {
         <div className="card-body">
           <h4>{name}</h4>
           <ul className="list-group list-group-flush">
-            {/* {
+            {
               React.Children.map(this.props.children, (child) => {
                 return React.cloneElement(child, { item });
               })
-            } */}
-            <li className="list-group-item">
+            }
+            {/* <li className="list-group-item">
               <span className="term">Gender</span>
               <span>{gender}</span>
             </li>
@@ -97,7 +97,7 @@ export default class ItemDetails extends Component {
             <li className="list-group-item">
               <span className="term">Eye Color</span>
               <span>{eyeColor}</span>
-            </li>
+            </li> */}
           </ul>
         </div>
       </div>
