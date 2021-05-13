@@ -70,7 +70,7 @@ export default class ItemDetails extends Component {
     }
 
     const { id, name, gender,
-      birthYear, eyeColor } = item;
+      birthYear, eyeColor } = item;     
 
     return (
       <div className="item-details card">

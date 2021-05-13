@@ -55,8 +55,9 @@ export default class App extends Component {
         getData={getStarship}
         getImageUrl={getStarshipImage}>
 
-        <Record field='gender' label='Gender' />
-        <Record field='eyeColor' label='Eye Color' />
+        <Record field='model' label='Model' />
+        <Record field='length' label='Length' />
+        <Record field='costInCredits' label='Cost' />
 
       </ItemDetails>
     );
