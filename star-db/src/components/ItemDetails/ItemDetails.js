@@ -69,8 +69,7 @@ export default class ItemDetails extends Component {
       return <Spinner />
     }
 
-    const { id, name, gender,
-      birthYear, eyeColor } = item;     
+    const { name } = item;     
 
     return (
       <div className="item-details card">
@@ -85,19 +84,7 @@ export default class ItemDetails extends Component {
               React.Children.map(this.props.children, (child) => {
                 return React.cloneElement(child, { item });
               })
-            }
-            {/* <li className="list-group-item">
-              <span className="term">Gender</span>
-              <span>{gender}</span>
-            </li>
-            <li className="list-group-item">
-              <span className="term">Birth Year</span>
-              <span>{birthYear}</span>
-            </li>
-            <li className="list-group-item">
-              <span className="term">Eye Color</span>
-              <span>{eyeColor}</span>
-            </li> */}
+            }            
           </ul>
         </div>
       </div>
