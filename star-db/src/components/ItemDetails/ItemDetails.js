@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+import ErrorButton from '../ErrorButton/ErrorButton';
+import Spinner from '../Spinner/Spinner';
 
 import './ItemDetails.css';
-import SwapiService from '../../services/SwapiService';
-import Spinner from '../Spinner';
+
 
 const Record = ({ item, field, label }) => {
   return (
@@ -13,13 +14,9 @@ const Record = ({ item, field, label }) => {
   );
 };
 
-export {
-  Record
-};
+export { Record };
 
-export default class ItemDetails extends Component {
-
-  swapiService = new SwapiService();
+export default class ItemDetails extends Component {  
 
   state = {
     item: null,
@@ -32,7 +29,9 @@ export default class ItemDetails extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.itemId !== prevProps.itemId) {
+    if (this.props.itemId !== prevProps.itemId ||
+      this.props.getData !== prevProps.getData ||
+      this.props.getImageUrl !== prevProps.getImageUrl) {
       this.updateItem();
     }
   }
@@ -86,6 +85,7 @@ export default class ItemDetails extends Component {
               })
             }            
           </ul>
+          <ErrorButton />
         </div>
       </div>
     )
